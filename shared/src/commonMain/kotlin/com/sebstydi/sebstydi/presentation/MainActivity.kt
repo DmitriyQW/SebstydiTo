@@ -1,4 +1,4 @@
-package com.sebstydi.sebstydi.domain.models.resume.presentation
+package com.sebstydi.sebstydi.presentation
 
 class MainActivity {
 }

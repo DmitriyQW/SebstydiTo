@@ -1,4 +1,4 @@
-package com.sebstudi.sebstudy.domain.models.resume.presentation
+package com.sebstydi.sebstydi.presentation
 
 const val COLOR_WHITE = 0xFFFFFF
 const val COLOR_BLACK = 0x000000

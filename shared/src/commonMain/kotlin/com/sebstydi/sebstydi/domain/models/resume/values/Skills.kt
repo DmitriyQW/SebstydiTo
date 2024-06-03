@@ -1,6 +1,6 @@
-package com.sebstudi.sebstudy.values
+package com.sebstydi.sebstydi.domain.models.resume.values
 
-import com.sebstudi.sebstudy.domain.models.resume.values.Skill
+
 
 data class Skills (
     val list_skill: List<Skill>

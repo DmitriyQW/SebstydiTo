@@ -1,4 +1,4 @@
-package com.sebstudi.sebstudy.domain.models.resume
+package com.sebstydi.sebstydi.domain.models.resume
 
 class Resume {
 

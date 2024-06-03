@@ -1,4 +1,4 @@
-package com.sebstudi.sebstudy.domain.models.resume.values
+package com.sebstydi.sebstydi.domain.models.resume.values
 
 data class PhoneNumber(val value: String) {
     init {
