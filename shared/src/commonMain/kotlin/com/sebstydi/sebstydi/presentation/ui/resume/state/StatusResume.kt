@@ -1,7 +1,7 @@
 package com.sebstydi.sebstydi.presentation.ui.resume.state
 
 enum class StatusResume(error:Throwable? = null) {
-    OK,
+    Success,
     Error,
-    loading
+    Loading
 }

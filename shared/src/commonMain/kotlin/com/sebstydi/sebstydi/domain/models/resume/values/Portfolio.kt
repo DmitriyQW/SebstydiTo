@@ -6,7 +6,7 @@ data class Portfolio(
     val urlPattern = "^https?://[a-zA-Z0-9.-]+(?:/[^\\s]*)?\$".toRegex()
 
     init {
-        require(urlPattern.matches(link) && !link.startsWith(" ") && link.length > 0) {
+        require(urlPattern.matches(link)) {
             "Ошибка со ссылкой"
         }
     }

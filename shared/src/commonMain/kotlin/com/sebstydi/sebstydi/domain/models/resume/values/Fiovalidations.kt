@@ -6,7 +6,7 @@ fun validation(valid:String){
         require(!valid.matches(Regex("[0-9]")) &&
                 !valid.matches(Regex("[a-zA-Z]")) &&
                 !valid.startsWith("ъ") && !valid.startsWith("ь")&&
-                !valid.startsWith(" ") && valid.length > 0 && valid.length < 50) {
+                !valid.startsWith(" ") && valid.length > 0 && valid.length < 50 && !valid.isEmpty()) {
                 "Имя  $valid введено неверно."}
 
 }
