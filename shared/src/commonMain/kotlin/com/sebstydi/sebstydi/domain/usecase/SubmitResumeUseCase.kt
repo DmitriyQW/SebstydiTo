@@ -8,7 +8,7 @@ import com.sebstydi.sebstydi.state.StatusResponse
 class SubmitResumeUseCase {
 
 
-    fun execute(resume: Resume):StatusResponse{
+    fun execute(resume: Resume): StatusResponse {
         if (resume.aboutMe.toString().isEmpty()
             || resume.aboutProjects.toString().isEmpty()
             ||resume.portfolio.toString().isEmpty()){
