@@ -12,43 +12,21 @@ import com.sebstydi.sebstydi.domain.models.resume.values.Photo
 import com.sebstydi.sebstydi.domain.models.resume.values.Portfolio
 import com.sebstydi.sebstydi.domain.models.resume.values.Skills
 
-class Resume {
-    lateinit var photo:Photo
-    lateinit var lastName:LastName
-    lateinit var firstName:FirstName
-    lateinit var midleName:MidleName
-    lateinit var phoneNumber:PhoneNumber
-    lateinit var education:Education
-    lateinit var aboutMe:AboutMe
-    lateinit var direction:Directions
-    lateinit var aboutProjects:AboutProjects
-    lateinit var skills:Skills
-    lateinit var portfolio:Portfolio
+data class Resume(  var photo:Photo,
+                    var lastName:LastName,
+                    var firstName:FirstName,
+                    var midleName:MidleName?=null,
+                    var phoneNumber:PhoneNumber,
+                    var education:Education,
+                    var aboutMe:AboutMe? = null,
+                    var direction:Directions,
+                    var aboutProjects:AboutProjects? = null,
+                    var skills:Skills,
+                    var portfolio:Portfolio? = null)
 
-    constructor(
-        photo: Photo,
-        lastName: LastName,
-        firstName: FirstName,
-        midleName: MidleName,
-        phoneNumber: PhoneNumber,
-        education: Education,
-        aboutMe: AboutMe,
-        direction: Directions,
-        aboutProjects: AboutProjects,
-        skills: Skills,
-        portfolio: Portfolio
-    ) {
-        this.photo = photo
-        this.lastName = lastName
-        this.firstName = firstName
-        this.midleName = midleName
-        this.phoneNumber = phoneNumber
-        this.education = education
-        this.aboutMe = aboutMe
-        this.direction = direction
-        this.aboutProjects = aboutProjects
-        this.skills = skills
-        this.portfolio = portfolio
-    }
-}
+
+
+
+
+
 
