@@ -25,7 +25,13 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            //put your multiplatform dependencies here
+            val koin = "3.2.0"
+            implementation("io.insert-koin:koin-core:${koin}")
+            implementation("io.insert-koin:koin-test:${koin}")
+            implementation("io.insert-koin:koin-android:${koin}")
+
+            implementation(project.dependencies.platform("io.insert-koin:koin-bom:3.5.3"))
+            implementation("io.insert-koin:koin-compose")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
