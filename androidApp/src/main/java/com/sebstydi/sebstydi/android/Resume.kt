@@ -15,11 +15,19 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sebstydi.sebstydi.android.ui.theme.SebstydiTheme
+import com.sebstydi.sebstydi.domain.models.resume.values.Education
+import com.sebstydi.sebstydi.domain.models.resume.values.Educations
 
+
+val EducationsList = Educations( listOf(
+    Education("РКСИ") ,
+    Education("ДГТУ"),
+    Education("ВГИК")))
 class MainActivity2 : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,11 +46,12 @@ class MainActivity2 : ComponentActivity() {
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     val scrollState = rememberScrollState()
 
+
     Column( modifier = Modifier
-        .verticalScroll(state = scrollState)) {
+        .verticalScroll(state = scrollState).fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
         Column {
             Text(
-                text = "Заполни резюме"
+                text = "Привет! Заполни резюме"
             )
             Text(
                 text = "Для связи"
@@ -50,7 +59,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         }
 
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier,horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             TextField(value = "Добавьте свое фото", onValueChange = {})
@@ -60,31 +69,25 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             TextField(value = "Отчество", onValueChange = {})
             TextField(value = "+7 (000) (000) 22 22", onValueChange = {})
             TextField(value = "Учебное заведение", onValueChange = {})
-            Column {
-                Text(text = "Расскажи о себе")
-                TextField(value = "Возможно, у тебя есть хобби, напиши о них или о своих личных качествах", onValueChange = {})
-            }
-            Column {
-                Text(text = "Твое направление")
-                TextField(value = "Выбери из списка", onValueChange = {})
-            }
-            Column {
-                Text(text = "О проектах")
-                TextField(value = "Какие проекты у вас были? \n" +
+
+            Text(text = "Расскажи о себе")
+            TextField(value = "Возможно, у тебя есть хобби, напиши о них или о своих личных качествах", onValueChange = {})
+
+            Text(text = "Твое направление")
+            TextField(value = "Выбери из списка", onValueChange = {})
+
+            Text(text = "О проектах")
+            TextField(value = "Какие проекты у вас были? \n" +
                         "Чем вы занимались?\n" +
                         "Как вы планируете свою работу?", onValueChange = {})
-            }
-            Column {
-                Text(text = "Hard Skills")
-                TextField(value = "Напишите навык", onValueChange = {})
-            }
-            Column {
-                Text(text = "Ссылка на портфолио")
-                TextField(value = "Прикрепите ссылку на гитхаб или беханс", onValueChange = {})
-            }
+
+            Text(text = "Hard Skills")
+            TextField(value = "Напишите навык", onValueChange = {})
+
+            Text(text = "Ссылка на портфолио")
+            TextField(value = "Прикрепите ссылку на гитхаб или беханс", onValueChange = {})
+
         }
-
-
 
         Button(onClick = { /*TODO*/ }) {
             Text(text = "Отправить резюме")
@@ -101,3 +104,8 @@ fun GreetingPreview() {
         Greeting("Android")
     }
 }
+
+
+
+
+
