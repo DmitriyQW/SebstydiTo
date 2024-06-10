@@ -32,6 +32,8 @@ kotlin {
 
             implementation(project.dependencies.platform("io.insert-koin:koin-bom:3.5.3"))
             implementation("io.insert-koin:koin-compose")
+
+
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -51,8 +53,6 @@ android {
     }
 }
 dependencies {
-    implementation(libs.androidx.ui.graphics.android)
-    implementation(libs.rendering)
 }
 
 
