@@ -1,4 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resources>
-    <string name="hello world">Hello world</string>
+    <string name="give_experience">Хочешь получить важный experience?</string>
+    <string name="сomplete_the_internship">Команда Sebbia предлагает пройти практику</string>
+    <string name="get_on_the_team">Попасть в команду</string>
+    <string name="fill_resume">Привет! Заполни резюме</string>
+    <string name="for_contact">Для связи</string>
+    <string name="add_your_photo">Добавьте свое фото</string>
+    <string name="optional_field">Необязательное поле</string>
+    <string name="firstname">Имя</string>
+    <string name="lastname">Фамилия</string>
+    <string name="midlename">Отчество</string>
+    <string name="phonenumber">+7 (000) (000) 22 22</string>
+    <string name="education">Учебное заведение</string>
+    <string name="about_you">Расскажи о себе</string>
+    <string name="about_you_hint">Возможно, у тебя есть хобби, напиши о них или о своих личных качествах</string>
+    <string name="direction">Твое направление</string>
+    <string name="direction_hint">Выбери из списка</string>
+    <string name="about_project">О проектах</string>
+    <string name="about_project_hint">Какие проекты у тебя были?</string>
+    <string name="hard_skills">Hard Skills</string>
+    <string name="hard_skills_hint">Напишите навык</string>
+    <string name="link_to_portfolio">Ссылка на портфолио</string>
+    <string name="link_to_portfolio_hint">Прикрепи ссылку на гитхаб или беханс</string>
+    <string name="send_resume">Отправить резюме</string>
+    <string name="information_transfer">Заполняя форму, я принимаю условия передачи информации</string>
+    <string name="photo_student">Фото студента</string>
+    <string name="change">Сменить</string>
+    <string name="delete">Удалить</string>
+    <string name="back">Вернуться</string>
+    <string name="resume_send_successfully">Резюме отправлено успешно!</string>
+    <string name="10_days">В течение 10 дней мы вам напишем или позвоним</string>
+    <string name="error">Произошла ошибка :(</string>
+    <string name="fill_resume_again_or_error_internet">Попробуй заполнить резюме снова и проверить свое соединение к интернету</string>
+    <string name="try_again">Попробовать еще раз</string>
+    <string name="must_be_filled_in">Поле должно быть заполнено</string>
+    <string name="add">Добавить</string>
 </resources>

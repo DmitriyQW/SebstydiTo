@@ -24,19 +24,21 @@ kotlin {
     }
 
     sourceSets {
-        commonMain.dependencies {
-            val koin = "3.2.0"
-            implementation("io.insert-koin:koin-core:${koin}")
-            implementation("io.insert-koin:koin-test:${koin}")
-            implementation("io.insert-koin:koin-android:${koin}")
+        commonMain {
+            dependencies {
+                val koinVersion = "3.2.0"
+                implementation("io.insert-koin:koin-core:$koinVersion")
+                implementation("io.insert-koin:koin-test:$koinVersion")
+                implementation("io.insert-koin:koin-android:$koinVersion")
 
-            implementation(project.dependencies.platform("io.insert-koin:koin-bom:3.5.3"))
-            implementation("io.insert-koin:koin-compose")
-
-
+                implementation(project.dependencies.platform("io.insert-koin:koin-bom:3.5.3"))
+                implementation("io.insert-koin:koin-compose")
+            }
         }
-        commonTest.dependencies {
-            implementation(libs.kotlin.test)
+        commonTest {
+            dependencies {
+                implementation(libs.kotlin.test)
+            }
         }
     }
 }
@@ -44,16 +46,18 @@ kotlin {
 android {
     namespace = "com.sebstydi.sebstydi"
     compileSdk = 34
+
     defaultConfig {
         minSdk = 27
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
+
 dependencies {
     implementation(libs.androidx.ui.graphics.android)
+    implementation(libs.androidx.lifecycle.viewmodel.android)
 }
-
-
