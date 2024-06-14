@@ -17,5 +17,6 @@ fun NavGraph(navController: NavHostController) {
         composable("main_activity") {
             MainActivity()
         }
+
     }
 }
