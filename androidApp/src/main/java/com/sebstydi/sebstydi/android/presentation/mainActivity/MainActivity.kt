@@ -17,7 +17,6 @@ class MainActivity : ComponentActivity() {
             SebstydiTheme {
                 val navController = rememberNavController()
                 NavGraph(navController)
-
             }
         }
     }
