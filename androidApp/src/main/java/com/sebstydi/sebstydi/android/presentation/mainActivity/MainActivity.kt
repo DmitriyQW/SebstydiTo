@@ -14,13 +14,13 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -57,6 +57,7 @@ fun MainScreen(navController: NavHostController, viewModel: ResumeViewModel = vi
     val hardSkills = remember { mutableStateListOf<String>() }
     var newSkill by remember { mutableStateOf("") }
     var showSkillInput by remember { mutableStateOf(false) }
+    var selectedImageUri by remember { mutableStateOf<String?>(null) }
 
     Column(
         modifier = Modifier
@@ -64,35 +65,42 @@ fun MainScreen(navController: NavHostController, viewModel: ResumeViewModel = vi
             .padding(16.dp)
             .verticalScroll(rememberScrollState())
     ) {
-        // Приветственное сообщение
-        Text(
-            text = "Привет! Заполни резюме",
-            modifier = Modifier.padding(bottom = 16.dp)
-        )
+        // Приветственное сообщение и фото
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_vector),
+                contentDescription = "Фото пользователя",
+                modifier = Modifier
+                    .size(80.dp)
+                    .border(2.dp, MaterialTheme.colorScheme.primary)
+            )
+            Spacer(modifier = Modifier.width(16.dp))
+            Text(
+                text = "Привет! Заполни резюме",
+                modifier = Modifier.padding(bottom = 16.dp)
+            )
+        }
 
         // Поле для добавления фото
-        OutlinedTextField(
-            value = "",
-            onValueChange = {},
-            label = { Text("Добавьте свое фото") },
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(80.dp)
-                .clickable {},
-            readOnly = true,
-            trailingIcon = {
-                Box(
-                    modifier = Modifier
-                        .size(40.dp)
-                        .background(Color.Gray)
-                        .clickable { /* Обработка нажатия для выбора фото */ },
-                    contentAlignment = Alignment.Center
-                ) {
-                    // Замените этот блок на Image или Icon для фото
-                    Image(painter = painterResource(id = R.drawable.ic_load_photo), contentDescription = null)
-                }
+                .background(Color.LightGray)
+                .clickable { /* Обработка нажатия для выбора фото */ },
+            contentAlignment = Alignment.Center
+        ) {
+            if (selectedImageUri == null) {
+                Text("Добавьте свое фото", color = Color.White)
+            } else {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_load_photo), // Замените на выбранное фото
+                    contentDescription = "Фото пользователя",
+                    modifier = Modifier.size(80.dp)
+                )
             }
-        )
+        }
+
         Text(
             text = "Это необязательное поле",
             modifier = Modifier.padding(start = 16.dp, top = 4.dp, bottom = 16.dp)
@@ -231,9 +239,9 @@ fun MainScreen(navController: NavHostController, viewModel: ResumeViewModel = vi
                     OutlinedTextField(
                         value = newSkill,
                         onValueChange = { newSkill = it },
-                        label = { Text(stringResource(id = R.string.add)) },
+                        label = { Text("Добавить навык") },
                         modifier = Modifier
-                            .width(150.dp)
+                            .weight(1f)
                             .padding(vertical = 8.dp),
                         keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
                         singleLine = true
@@ -246,6 +254,9 @@ fun MainScreen(navController: NavHostController, viewModel: ResumeViewModel = vi
                         }
                     }) {
                         Icon(imageVector = Icons.Default.Add, contentDescription = "Добавить")
+                    }
+                    IconButton(onClick = { showSkillInput = false }) {
+                        Icon(imageVector = Icons.Default.Clear, contentDescription = "Отменить")
                     }
                 }
             } else {
@@ -267,15 +278,25 @@ fun MainScreen(navController: NavHostController, viewModel: ResumeViewModel = vi
                     .padding(vertical = 8.dp)
                     .horizontalScroll(rememberScrollState())
             ) {
-                hardSkills.forEach { skill ->
+                hardSkills.forEachIndexed { index, skill ->
                     Box(
                         modifier = Modifier
                             .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.1f))
                             .padding(8.dp)
                             .border(1.dp, MaterialTheme.colorScheme.primary)
                             .padding(end = 8.dp)
+                            .padding(horizontal = 8.dp, vertical = 4.dp)
                     ) {
-                        Text(skill, color = MaterialTheme.colorScheme.primary)
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Text(skill, color = MaterialTheme.colorScheme.primary)
+                            Spacer(modifier = Modifier.width(8.dp))
+                            IconButton(
+                                onClick = { hardSkills.removeAt(index) },
+                                modifier = Modifier.size(16.dp)
+                            ) {
+                                Icon(imageVector = Icons.Default.Clear, contentDescription = "Удалить навык")
+                            }
+                        }
                     }
                 }
             }
@@ -290,7 +311,11 @@ fun MainScreen(navController: NavHostController, viewModel: ResumeViewModel = vi
         )
 
         Button(
-            onClick = { viewModel.onEvent(ResumeEvent.OnClickSendResume) },
+            onClick = {
+                viewModel.onEvent(ResumeEvent.OnClickSendResume)
+                val skills = Skills(hardSkills.map { Skill(it) })
+                // Сохранение навыков в объект
+            },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Отправить резюме")

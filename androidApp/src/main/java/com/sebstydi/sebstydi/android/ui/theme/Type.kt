@@ -8,17 +8,31 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.sebstydi.sebstydi.android.R
 
+val poppininsFontFamily = FontFamily(
+    Font(R.font.roboto_bold,FontWeight.SemiBold) ,
+    Font(R.font.roboto_medium,FontWeight.Medium)
+)
+
 val Typography = Typography(
     bodyLarge = TextStyle(
-        fontFamily = FontFamily.Default,
+        fontFamily = poppininsFontFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
+    ),
+    titleLarge = TextStyle(
+        fontFamily = poppininsFontFamily,
+        fontWeight = FontWeight.Bold,
+        fontSize = 20.sp,
+        lineHeight = 28.sp,
+        letterSpacing = 0.sp
+    ),
+    labelLarge = TextStyle(
+        fontFamily = poppininsFontFamily,
+        fontWeight = FontWeight.Medium,
+        fontSize = 14.sp,
+        lineHeight = 20.sp,
+        letterSpacing = 0.1.sp
     )
-
-)
-val poppininsFontFamily = FontFamily(
-    Font(R.font.roboto_bold,FontWeight.SemiBold) ,
-    Font(R.font.roboto_medium,FontWeight.Medium)
 )
