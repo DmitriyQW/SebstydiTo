@@ -2,7 +2,7 @@ package com.sebstydi.sebstydi.android.presentation.startPage.viewModel
 
 import com.sebstydi.sebstydi.presentation.startPage.state.StartEffect
 import com.sebstydi.sebstydi.presentation.startPage.viewModel.ISplashViewModel
-import com.sebstydi.sebstydi.presentation.ui.startPage.state.StatusStartPage
+import com.sebstydi.sebstydi.presentation.startPage.state.StatusStartPage
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sebstydi.sebstydi.presentation.startPage.state.StartEvent
