@@ -1,9 +1,6 @@
 package com.sebstydi.sebstydi.android.presentation.resumeSubmit
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
@@ -16,30 +13,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sebstydi.sebstydi.android.R
 import com.sebstydi.sebstydi.android.ui.theme.SebstydiTheme
 import com.sebstydi.sebstydi.android.ui.theme.poppininsFontFamily
 
-class ResumSubmitPage {
-
-    class MainActivity : ComponentActivity() {
-        override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
-            enableEdgeToEdge()
-            setContent {
-                SebstydiTheme {
-
-                }
-            }
-        }
-    }
-
-    @Preview(showBackground = true)
     @Composable
-    fun DefaultPreview() {
+    fun ResumSubmitPage() {
         SebstydiTheme {
             Column(modifier = Modifier
                 .height(894.dp)
@@ -66,4 +47,3 @@ class ResumSubmitPage {
         }
     }
 
-}

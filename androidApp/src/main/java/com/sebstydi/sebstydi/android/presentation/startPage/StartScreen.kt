@@ -31,7 +31,7 @@ fun StartScreen(navController: NavController, viewModel: StartViewModel = koinVi
         viewModel.effect.collect { effect ->
             when (effect) {
                 StartEffect.NavigateToNextScreen -> {
-                    navController.navigate("main_screen")
+                    navController.navigate("experiencePage")
                 }
             }
         }

@@ -46,7 +46,7 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(navController: NavHostController, viewModel: ResumeViewModel = viewModel()) {
+fun MainScreen(OnClik: () -> Unit, viewModel: ResumeViewModel = viewModel()) {
     val state by viewModel.state.collectAsState()
     var expandedUniversity by remember { mutableStateOf(false) }
     var selectedUniversity by remember { mutableStateOf("") }
@@ -87,8 +87,9 @@ fun MainScreen(navController: NavHostController, viewModel: ResumeViewModel = vi
                 .fillMaxWidth()
                 .height(80.dp)
                 .background(Color.LightGray)
-                .clickable { /* Обработка нажатия для выбора фото */ },
-            contentAlignment = Alignment.Center
+                .clickable{ OnClik()
+                /* Обработка нажатия для выбора фото */ },
+                contentAlignment = Alignment.Center
         ) {
             if (selectedImageUri == null) {
                 Text("Добавьте свое фото", color = Color.White)
@@ -312,6 +313,7 @@ fun MainScreen(navController: NavHostController, viewModel: ResumeViewModel = vi
 
         Button(
             onClick = {
+                OnClik()
                 viewModel.onEvent(ResumeEvent.OnClickSendResume)
                 val skills = Skills(hardSkills.map { Skill(it) })
                 // Сохранение навыков в объект

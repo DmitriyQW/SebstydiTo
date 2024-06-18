@@ -1,50 +1,31 @@
 package com.sebstydi.sebstydi.android.presentation.experiencePage
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.sebstydi.sebstydi.android.R
-import com.sebstydi.sebstydi.android.ui.theme.SebstydiTheme
-import com.sebstydi.sebstydi.android.ui.theme.poppininsFontFamily
+    import androidx.compose.foundation.Image
+    import androidx.compose.foundation.layout.Column
+    import androidx.compose.foundation.layout.height
+    import androidx.compose.foundation.layout.padding
+    import androidx.compose.foundation.layout.width
+    import androidx.compose.foundation.shape.RoundedCornerShape
+    import androidx.compose.material3.Button
+    import androidx.compose.material3.ButtonDefaults
+    import androidx.compose.material3.Text
+    import androidx.compose.runtime.Composable
+    import androidx.compose.ui.Modifier
+    import androidx.compose.ui.graphics.Color
+    import androidx.compose.ui.res.painterResource
+    import androidx.compose.ui.res.stringResource
+    import androidx.compose.ui.text.TextStyle
+    import androidx.compose.ui.text.font.FontWeight
+    import androidx.compose.ui.text.style.TextAlign
+    import androidx.compose.ui.unit.dp
+    import androidx.compose.ui.unit.sp
+    import com.sebstydi.sebstydi.android.R
+    import com.sebstydi.sebstydi.android.ui.theme.SebstydiTheme
+    import com.sebstydi.sebstydi.android.ui.theme.poppininsFontFamily
 
-class ExperiencePage {
 
-    class MainActivity : ComponentActivity() {
-        override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
-            enableEdgeToEdge()
-            setContent {
-                SebstydiTheme {
-
-                }
-            }
-        }
-    }
-
-    @Preview(showBackground = true)
     @Composable
-    fun DefaultPreview() {
+    fun ExperiencePage(OnClik: () -> Unit) {
         SebstydiTheme {
             Column(modifier = Modifier
                 .height(894.dp)
@@ -52,16 +33,16 @@ class ExperiencePage {
                 Text(text = stringResource(id = R.string.give_experience), style = TextStyle(fontSize = 36.sp), modifier = Modifier.padding(top = 154.dp, start = 16.dp), fontFamily = poppininsFontFamily, fontWeight = FontWeight.SemiBold)
                 Text(text = stringResource(id = R.string.сomplete_the_internship), style = TextStyle(fontSize = 16.sp), modifier = Modifier.padding(top = 10.dp, start = 16.dp), fontFamily = poppininsFontFamily, fontWeight = FontWeight.SemiBold)
 
-                    Button(onClick = {}, modifier = Modifier
-                        .padding(start = 16.dp,top = 22.dp)
-                        .width(182.dp)
-                        .width(40.dp)
-                        ,shape = RoundedCornerShape(12.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            contentColor = Color.White, // цвет текста
-                            containerColor = Color.Black)) { // цвет кнопки
-                        Text(text = stringResource(id = R.string.get_on_the_team),textAlign = TextAlign.Center, style = TextStyle(fontSize = 14.sp), fontFamily = poppininsFontFamily, fontWeight = FontWeight.Medium)
-                    }
+                Button(onClick = {OnClik()}, modifier = Modifier
+                    .padding(start = 16.dp,top = 22.dp)
+                    .width(182.dp)
+                    .width(40.dp)
+                    ,shape = RoundedCornerShape(12.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        contentColor = Color.White, // цвет текста
+                        containerColor = Color.Black)) { // цвет кнопки
+                    Text(text = stringResource(id = R.string.get_on_the_team),textAlign = TextAlign.Center, style = TextStyle(fontSize = 14.sp), fontFamily = poppininsFontFamily, fontWeight = FontWeight.Medium)
+                }
 
                 Image(painter = painterResource(id = R.drawable.ic_licho), contentDescription = null,
                     Modifier
@@ -70,6 +51,4 @@ class ExperiencePage {
                         .padding(start = 87.dp, top = 162.dp))
             }
         }
-    }
-
     }
