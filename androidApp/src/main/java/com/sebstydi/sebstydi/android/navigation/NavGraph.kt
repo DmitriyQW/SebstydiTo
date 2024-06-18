@@ -20,7 +20,7 @@ fun NavGraph(navController: NavHostController) {
             StartScreen(navController)
         }
         composable("main_screen") {
-            MainScreen(OnClik = {})
+            MainScreen(navController)
         }
         composable("experiencePage"){
             ExperiencePage{

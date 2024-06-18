@@ -10,17 +10,20 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -31,6 +34,9 @@ import com.sebstydi.sebstydi.android.navigation.NavGraph
 import com.sebstydi.sebstydi.android.ui.theme.SebstydiTheme
 import com.sebstydi.sebstydi.domain.models.resume.values.*
 import com.sebstydi.sebstydi.presentation.resume.state.ResumeEvent
+import com.sebstydi.sebstydi.ui.theme.PrimaryBlueMainColor
+import com.sebstydi.sebstydi.ui.theme.PrimaryButtonColor
+import com.sebstydi.sebstydi.ui.theme.SecondaryBlueMainColor
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,9 +50,9 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
-fun MainScreen(OnClik: () -> Unit, viewModel: ResumeViewModel = viewModel()) {
+fun MainScreen(navController: NavHostController, viewModel: ResumeViewModel = viewModel()) {
     val state by viewModel.state.collectAsState()
     var expandedUniversity by remember { mutableStateOf(false) }
     var selectedUniversity by remember { mutableStateOf("") }
@@ -56,8 +62,7 @@ fun MainScreen(OnClik: () -> Unit, viewModel: ResumeViewModel = viewModel()) {
     val directionOptions = listOf("frontend", "backend", "mobile", "дизайн")
     val hardSkills = remember { mutableStateListOf<String>() }
     var newSkill by remember { mutableStateOf("") }
-    var showSkillInput by remember { mutableStateOf(false) }
-    var selectedImageUri by remember { mutableStateOf<String?>(null) }
+    var isAddingSkill by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -65,42 +70,31 @@ fun MainScreen(OnClik: () -> Unit, viewModel: ResumeViewModel = viewModel()) {
             .padding(16.dp)
             .verticalScroll(rememberScrollState())
     ) {
-        // Приветственное сообщение и фото
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_vector),
-                contentDescription = "Фото пользователя",
-                modifier = Modifier
-                    .size(80.dp)
-                    .border(2.dp, MaterialTheme.colorScheme.primary)
-            )
-            Spacer(modifier = Modifier.width(16.dp))
-            Text(
-                text = "Привет! Заполни резюме",
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
-        }
+        // Приветственное сообщение
+        Text(
+            text = "Привет! Заполни резюме",
+            modifier = Modifier.padding(bottom = 16.dp)
+        )
 
         // Поле для добавления фото
-        Box(
+        OutlinedTextField(
+            value = "",
+            onValueChange = {},
+            label = { Text("Добавьте свое фото") },
             modifier = Modifier
                 .fillMaxWidth()
-                .height(80.dp)
-                .background(Color.LightGray)
-                .clickable{ OnClik()
-                /* Обработка нажатия для выбора фото */ },
-                contentAlignment = Alignment.Center
-        ) {
-            if (selectedImageUri == null) {
-                Text("Добавьте свое фото", color = Color.White)
-            } else {
+                .clickable { /* Обработка нажатия для выбора фото */ },
+            readOnly = true,
+            trailingIcon = {
                 Image(
-                    painter = painterResource(id = R.drawable.ic_load_photo), // Замените на выбранное фото
-                    contentDescription = "Фото пользователя",
-                    modifier = Modifier.size(80.dp)
+                    painter = painterResource(id = R.drawable.ic_load_photo),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(40.dp)
+                        .clickable { /* Обработка нажатия для выбора фото */ }
                 )
             }
-        }
+        )
 
         Text(
             text = "Это необязательное поле",
@@ -230,73 +224,95 @@ fun MainScreen(OnClik: () -> Unit, viewModel: ResumeViewModel = viewModel()) {
         )
 
         Text("Hard Skills")
-        // Секция для Hard Skills
-        Column(modifier = Modifier.fillMaxWidth()) {
-            if (showSkillInput) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth()
+
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            if (!isAddingSkill) {
+                IconButton(
+                    onClick = { isAddingSkill = true },
+                    modifier = Modifier
+                        .size(40.dp)
+                        .background(
+                            color = Color(PrimaryButtonColor),
+                            shape = CircleShape
+                        )
                 ) {
-                    OutlinedTextField(
-                        value = newSkill,
-                        onValueChange = { newSkill = it },
-                        label = { Text("Добавить навык") },
-                        modifier = Modifier
-                            .weight(1f)
-                            .padding(vertical = 8.dp),
-                        keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
-                        singleLine = true
+                    Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = "Добавить навык",
+                        tint = Color.White
                     )
-                    IconButton(onClick = {
+                }
+            } else {
+                // Текстовое поле для ввода навыка
+                OutlinedTextField(
+                    value = newSkill,
+                    onValueChange = { newSkill = it },
+                    label = { Text("Напишите навык") },
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(end = 8.dp),
+                    keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
+                    singleLine = true,
+                    trailingIcon = {
+                        IconButton(onClick = {
+                            newSkill = ""
+                            isAddingSkill = false
+                        }) {
+                            Icon(imageVector = Icons.Default.Close, contentDescription = "Закрыть")
+                        }
+                    }
+                )
+                IconButton(
+                    onClick = {
                         if (newSkill.isNotBlank()) {
                             hardSkills.add(newSkill)
                             newSkill = ""
-                            showSkillInput = false
+                            isAddingSkill = false
                         }
-                    }) {
-                        Icon(imageVector = Icons.Default.Add, contentDescription = "Добавить")
-                    }
-                    IconButton(onClick = { showSkillInput = false }) {
-                        Icon(imageVector = Icons.Default.Clear, contentDescription = "Отменить")
-                    }
-                }
-            } else {
-                IconButton(
-                    onClick = { showSkillInput = true },
+                    },
                     modifier = Modifier
-                        .size(48.dp)
+                        .size(32.dp)
                         .background(
-                            MaterialTheme.colorScheme.primary,
-                            shape = MaterialTheme.shapes.small
+                            color = Color(PrimaryButtonColor),
+                            shape = CircleShape
                         )
                 ) {
-                    Icon(imageVector = Icons.Default.Add, contentDescription = "Добавить", tint = Color.White)
+                    Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = "Добавить",
+                        tint = Color.White
+                    )
                 }
             }
+        }
 
-            Row(
-                modifier = Modifier
-                    .padding(vertical = 8.dp)
-                    .horizontalScroll(rememberScrollState())
-            ) {
-                hardSkills.forEachIndexed { index, skill ->
-                    Box(
+        // Отображение добавленных скиллов в строке
+        FlowRow(
+            modifier = Modifier.padding(top = 8.dp),
+        ) {
+            hardSkills.forEach { skill ->
+                Box(
+                    modifier = Modifier
+                        .background(Color.White)
+                        .border(1.dp, Color(SecondaryBlueMainColor), shape = RoundedCornerShape(8.dp))
+                        .padding(horizontal = 8.dp, vertical = 4.dp)
+                ) {
+                    Row(
                         modifier = Modifier
-                            .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.1f))
-                            .padding(8.dp)
-                            .border(1.dp, MaterialTheme.colorScheme.primary)
-                            .padding(end = 8.dp)
-                            .padding(horizontal = 8.dp, vertical = 4.dp)
+                            .wrapContentWidth(Alignment.Start),
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text(skill, color = MaterialTheme.colorScheme.primary)
-                            Spacer(modifier = Modifier.width(8.dp))
-                            IconButton(
-                                onClick = { hardSkills.removeAt(index) },
-                                modifier = Modifier.size(16.dp)
-                            ) {
-                                Icon(imageVector = Icons.Default.Clear, contentDescription = "Удалить навык")
-                            }
+                        Text(skill, color = Color.Black)
+                        Spacer(modifier = Modifier.width(8.dp))
+                        IconButton(
+                            onClick = { hardSkills.remove(skill) },
+                            modifier = Modifier.size(24.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Close,
+                                contentDescription = "Удалить",
+                                tint = Color(PrimaryButtonColor)
+                            )
                         }
                     }
                 }
@@ -312,12 +328,7 @@ fun MainScreen(OnClik: () -> Unit, viewModel: ResumeViewModel = viewModel()) {
         )
 
         Button(
-            onClick = {
-                OnClik()
-                viewModel.onEvent(ResumeEvent.OnClickSendResume)
-                val skills = Skills(hardSkills.map { Skill(it) })
-                // Сохранение навыков в объект
-            },
+            onClick = { viewModel.onEvent(ResumeEvent.OnClickSendResume) },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Отправить резюме")
