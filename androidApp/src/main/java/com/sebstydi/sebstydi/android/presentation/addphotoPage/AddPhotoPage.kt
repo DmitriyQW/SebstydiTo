@@ -14,7 +14,7 @@ import com.sebstydi.sebstydi.android.R
 import com.sebstydi.sebstydi.android.ui.theme.SebstydiTheme
 
     @Composable
-    fun AddPhotoPage(OnClik: () -> Unit) {
+    fun AddPhotoPage() {
         SebstydiTheme {
             Row {
                 Image(

@@ -51,14 +51,14 @@ fun StartScreen(navController: NavController, viewModel: StartViewModel = koinVi
                 painter = painterResource(id = R.drawable.logo),
                 contentDescription = null,
                 modifier = Modifier.size(300.dp, 280.dp)
-//                    .padding(bottom = 105.dp)
+                    .padding(bottom = 105.dp)
             )
         }
 
         Box(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(start = 135.dp, bottom = 40.dp)
+                .padding(start = 120.dp)
         ) {
             Image(
                 painter = painterResource(id = R.drawable.ic_hand),

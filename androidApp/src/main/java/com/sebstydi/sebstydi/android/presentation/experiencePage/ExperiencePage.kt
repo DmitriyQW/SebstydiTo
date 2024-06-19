@@ -48,7 +48,7 @@ package com.sebstydi.sebstydi.android.presentation.experiencePage
                     Modifier
                         .height(516.dp)
                         .width(505.dp)
-                        .padding(start = 87.dp, top = 162.dp))
+                        .padding(start = 111.dp, top = 162.dp))
             }
         }
     }

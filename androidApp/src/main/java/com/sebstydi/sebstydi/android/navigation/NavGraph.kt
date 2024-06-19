@@ -28,7 +28,7 @@ fun NavGraph(navController: NavHostController) {
             }
 
         composable("addPhotoPage") {
-                AddPhotoPage(OnClik = {})
+                AddPhotoPage()
            }
       }
     }
