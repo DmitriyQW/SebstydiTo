@@ -9,7 +9,6 @@ import com.sebstydi.sebstydi.android.presentation.addphotoPage.AddPhotoPage
 import com.sebstydi.sebstydi.android.presentation.experiencePage.ExperiencePage
 import com.sebstydi.sebstydi.android.presentation.mainActivity.MainActivity
 import com.sebstydi.sebstydi.android.presentation.mainActivity.MainScreen
-import com.sebstydi.sebstydi.android.presentation.resumeErrorPage.ResumeErrorPreview
 import com.sebstydi.sebstydi.android.presentation.resumeSubmit.ResumSubmitPage
 import com.sebstydi.sebstydi.android.presentation.startPage.StartScreen
 
@@ -23,16 +22,14 @@ fun NavGraph(navController: NavHostController) {
         composable("main_screen") {
             MainScreen(navController)
         }
-        composable("experiencePage") {
-            ExperiencePage {
+        composable("experiencePage"){
+            ExperiencePage{
                 navController.navigate("main_screen")
             }
-        }
-        composable("submit_resume") {
-            ResumeErrorPreview(navController)
-        }
-        composable("add_photo") {
-            AddPhotoPage(navController)
-        }
+
+        composable("addPhotoPage") {
+                AddPhotoPage(OnClik = {})
+           }
+      }
     }
 }
