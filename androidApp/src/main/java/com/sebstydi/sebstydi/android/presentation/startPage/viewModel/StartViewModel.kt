@@ -23,7 +23,7 @@ class StartViewModel : ViewModel(), ISplashViewModel {
 
     init {
         viewModelScope.launch {
-            delay(3000)
+            delay(2000)
             _effect.emit(StartEffect.NavigateToNextScreen)
         }
     }

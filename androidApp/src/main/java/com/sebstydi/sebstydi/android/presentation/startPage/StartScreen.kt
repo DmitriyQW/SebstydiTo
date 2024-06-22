@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -40,7 +41,7 @@ fun StartScreen(navController: NavController, viewModel: StartViewModel = koinVi
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(PrimaryBlueMainColor))
+            .background(Color(PrimaryBlueMainColor)).padding(bottom = 23.dp)
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -50,20 +51,19 @@ fun StartScreen(navController: NavController, viewModel: StartViewModel = koinVi
             Image(
                 painter = painterResource(id = R.drawable.logo),
                 contentDescription = null,
-                modifier = Modifier.size(300.dp, 280.dp)
-//                    .padding(bottom = 105.dp)
+                modifier = Modifier.size(187.dp, 141.dp)
             )
         }
 
         Box(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(start = 135.dp, bottom = 40.dp)
         ) {
             Image(
                 painter = painterResource(id = R.drawable.ic_hand),
                 contentDescription = null,
-                modifier = Modifier.size(350.dp, 350.dp)
+                modifier = Modifier.size(250.dp, 250.dp)
+                    .offset(x = 20.dp, y = 0.dp)
             )
         }
     }

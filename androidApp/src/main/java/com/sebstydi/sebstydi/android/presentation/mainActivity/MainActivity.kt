@@ -9,7 +9,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -23,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -35,6 +35,7 @@ import com.sebstydi.sebstydi.android.ui.theme.SebstydiTheme
 import com.sebstydi.sebstydi.android.ui.theme.poppininsFontFamily
 import com.sebstydi.sebstydi.domain.models.resume.values.*
 import com.sebstydi.sebstydi.presentation.resume.state.ResumeEvent
+import com.sebstydi.sebstydi.ui.theme.BackgroundColor
 import com.sebstydi.sebstydi.ui.theme.PrimaryBlueMainColor
 import com.sebstydi.sebstydi.ui.theme.PrimaryButtonColor
 import com.sebstydi.sebstydi.ui.theme.SecondaryBlueMainColor
@@ -68,7 +69,7 @@ fun MainScreen(navController: NavHostController, viewModel: ResumeViewModel = vi
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(top = 50.dp, bottom = 40.dp, start = 10.dp, end = 10.dp)
             .verticalScroll(rememberScrollState())
     ) {
         Row(
@@ -86,49 +87,35 @@ fun MainScreen(navController: NavHostController, viewModel: ResumeViewModel = vi
                 modifier = Modifier.weight(1f),
                 fontSize = 24.sp,
                 color = Color(PrimaryBlueMainColor),
-                fontFamily = poppininsFontFamily
+                fontFamily = poppininsFontFamily,
+                fontWeight = FontWeight.SemiBold
             )
         }
 
         Text(stringResource(id = R.string.for_contact),
             modifier = Modifier.padding( top = 10.dp, bottom = 10.dp),
             fontSize = 20.sp,
-            fontFamily = poppininsFontFamily
+            fontFamily = poppininsFontFamily,
+            fontWeight = FontWeight.SemiBold
         )
 
-        // Поле для добавления фото
-        OutlinedTextField(
-            value = "",
-            onValueChange = {},
-            label = { Text(stringResource(id = R.string.add_your_photo)) },
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable { /* Обработка нажатия для выбора фото */ },
-            readOnly = true,
-            trailingIcon = {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_load_photo),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(40.dp)
-                        .clickable { /* Обработка нажатия для выбора фото */ }
-                )
-            }
-        )
+        CustomPhotoPickerField(navController = navController)
 
         Text(
             text = stringResource(id = R.string.optional_field),
             modifier = Modifier.padding(start = 8.dp, top = 4.dp),
             fontSize = 14.sp,
             color = Color(SecondaryBlueMainColor),
-            fontFamily = poppininsFontFamily
+            fontFamily = poppininsFontFamily,
+            fontWeight = FontWeight.SemiBold
         )
 
         // Поля формы
         OutlinedTextField(
             value = state.firstNameError?.value ?: "",
             onValueChange = { viewModel.onEvent(ResumeEvent.OnFirstNameChanged(FirstName(it))) },
-            label = { Text(stringResource(id = R.string.firstname), fontFamily = poppininsFontFamily) },
+            label = { Text(stringResource(id = R.string.firstname), fontFamily = poppininsFontFamily,
+                fontWeight = FontWeight.SemiBold) },
             isError = state.firstNameError != null,
             keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Next),
             modifier = Modifier
@@ -139,7 +126,8 @@ fun MainScreen(navController: NavHostController, viewModel: ResumeViewModel = vi
         OutlinedTextField(
             value = state.lastNameError?.value ?: "",
             onValueChange = { viewModel.onEvent(ResumeEvent.OnLastNameChanged(LastName(it))) },
-            label = { Text(stringResource(id = R.string.lastname), fontFamily = poppininsFontFamily) },
+            label = { Text(stringResource(id = R.string.lastname), fontFamily = poppininsFontFamily,
+                fontWeight = FontWeight.SemiBold) },
             isError = state.lastNameError != null,
             keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Next),
             modifier = Modifier
@@ -150,7 +138,8 @@ fun MainScreen(navController: NavHostController, viewModel: ResumeViewModel = vi
         OutlinedTextField(
             value = state.midleNameError?.value ?: "",
             onValueChange = { viewModel.onEvent(ResumeEvent.OnMidleNameChanged(MidleName(it))) },
-            label = { Text(stringResource(id = R.string.midlename), fontFamily = poppininsFontFamily) },
+            label = { Text(stringResource(id = R.string.midlename), fontFamily = poppininsFontFamily,
+                fontWeight = FontWeight.SemiBold) },
             isError = state.midleNameError != null,
             keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Next),
             modifier = Modifier
@@ -161,7 +150,8 @@ fun MainScreen(navController: NavHostController, viewModel: ResumeViewModel = vi
         OutlinedTextField(
             value = state.phoneNumberError?.value ?: "",
             onValueChange = { viewModel.onEvent(ResumeEvent.OnPhoneNumberChanged(PhoneNumber(it))) },
-            label = { Text(stringResource(id = R.string.phonenumber), fontFamily = poppininsFontFamily) },
+            label = { Text(stringResource(id = R.string.phonenumber), fontFamily = poppininsFontFamily,
+                fontWeight = FontWeight.SemiBold) },
             isError = state.phoneNumberError != null,
             keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Next),
             modifier = Modifier
@@ -177,7 +167,8 @@ fun MainScreen(navController: NavHostController, viewModel: ResumeViewModel = vi
                 value = selectedUniversity,
                 onValueChange = {},
                 readOnly = true,
-                label = { Text(stringResource(id = R.string.education), fontFamily = poppininsFontFamily) },
+                label = { Text(stringResource(id = R.string.education), fontFamily = poppininsFontFamily,
+                    fontWeight = FontWeight.SemiBold) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable { expandedUniversity = true },
@@ -206,14 +197,16 @@ fun MainScreen(navController: NavHostController, viewModel: ResumeViewModel = vi
         Text(stringResource(id = R.string.about_you),
             modifier = Modifier.padding( top = 10.dp, bottom = 10.dp),
             fontSize = 20.sp,
-            fontFamily = poppininsFontFamily
+            fontFamily = poppininsFontFamily,
+            fontWeight = FontWeight.SemiBold
         )
 
         // Поле "Расскажи о себе"
         OutlinedTextField(
             value = state.aboutMe?.value ?: "",
             onValueChange = { viewModel.onEvent(ResumeEvent.OnAboutMeChanged(AboutMe(it))) },
-            label = { Text(stringResource(id = R.string.about_you_hint), fontFamily = poppininsFontFamily) },
+            label = { Text(stringResource(id = R.string.about_you_hint), fontFamily = poppininsFontFamily,
+                fontWeight = FontWeight.SemiBold) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 8.dp)
@@ -223,7 +216,8 @@ fun MainScreen(navController: NavHostController, viewModel: ResumeViewModel = vi
         Text(stringResource(id = R.string.direction),
             modifier = Modifier.padding( top = 10.dp, bottom = 10.dp),
             fontSize = 20.sp,
-            fontFamily = poppininsFontFamily
+            fontFamily = poppininsFontFamily,
+            fontWeight = FontWeight.SemiBold
         )
 
         // Выпадающий список для выбора направления
@@ -264,13 +258,15 @@ fun MainScreen(navController: NavHostController, viewModel: ResumeViewModel = vi
         Text(stringResource(id = R.string.about_project),
             modifier = Modifier.padding( top = 10.dp, bottom = 10.dp),
             fontSize = 20.sp,
-            fontFamily = poppininsFontFamily
+            fontFamily = poppininsFontFamily,
+            fontWeight = FontWeight.SemiBold
         )
 
         OutlinedTextField(
             value = state.aboutProjects?.value ?: "",
             onValueChange = { viewModel.onEvent(ResumeEvent.OnAboutProjectChanged(AboutProjects(it))) },
-            label = { Text(stringResource(id = R.string.about_project_hint), fontFamily = poppininsFontFamily) },
+            label = { Text(stringResource(id = R.string.about_project_hint), fontFamily = poppininsFontFamily,
+                fontWeight = FontWeight.SemiBold) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 8.dp)
@@ -280,7 +276,8 @@ fun MainScreen(navController: NavHostController, viewModel: ResumeViewModel = vi
         Text(stringResource(id = R.string.hard_skills),
             modifier = Modifier.padding( top = 10.dp, bottom = 10.dp),
             fontSize = 20.sp,
-            fontFamily = poppininsFontFamily
+            fontFamily = poppininsFontFamily,
+            fontWeight = FontWeight.SemiBold
             )
 
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -291,7 +288,7 @@ fun MainScreen(navController: NavHostController, viewModel: ResumeViewModel = vi
                         .size(40.dp)
                         .background(
                             color = Color(PrimaryButtonColor),
-                            shape = CircleShape
+                            RoundedCornerShape(15.dp)
                         )
                 ) {
                     Icon(
@@ -305,7 +302,8 @@ fun MainScreen(navController: NavHostController, viewModel: ResumeViewModel = vi
                 OutlinedTextField(
                     value = newSkill,
                     onValueChange = { newSkill = it },
-                    label = { Text(stringResource(id = R.string.hard_skills_hint), fontFamily = poppininsFontFamily) },
+                    label = { Text(stringResource(id = R.string.hard_skills_hint), fontFamily = poppininsFontFamily,
+                        fontWeight = FontWeight.SemiBold) },
                     modifier = Modifier
                         .weight(1f)
                         .padding(end = 10.dp),
@@ -332,7 +330,7 @@ fun MainScreen(navController: NavHostController, viewModel: ResumeViewModel = vi
                         .size(32.dp)
                         .background(
                             color = Color(PrimaryButtonColor),
-                            shape = CircleShape
+                            RoundedCornerShape(15.dp)
                         )
                 ) {
                     Icon(
@@ -384,13 +382,15 @@ fun MainScreen(navController: NavHostController, viewModel: ResumeViewModel = vi
         Text(stringResource(id = R.string.link_to_portfolio),
             modifier = Modifier.padding( top = 10.dp, bottom = 8.dp),
             fontSize = 20.sp,
-            fontFamily = poppininsFontFamily
+            fontFamily = poppininsFontFamily,
+            fontWeight = FontWeight.SemiBold
         )
 
         OutlinedTextField(
             value = state.portfolio?.link ?: "",
             onValueChange = { viewModel.onEvent(ResumeEvent.OnPortfolioChanged(Portfolio(it))) },
-            label = { Text(stringResource(id = R.string.link_to_portfolio_hint), fontFamily = poppininsFontFamily) },
+            label = { Text(stringResource(id = R.string.link_to_portfolio_hint), fontFamily = poppininsFontFamily,
+                fontWeight = FontWeight.SemiBold) },
             keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
             modifier = Modifier
                 .fillMaxWidth()
@@ -400,24 +400,60 @@ fun MainScreen(navController: NavHostController, viewModel: ResumeViewModel = vi
             text = stringResource(id = R.string.optional_field),
             fontSize = 14.sp,
             color = Color(SecondaryBlueMainColor),
-            fontFamily = poppininsFontFamily
+            fontFamily = poppininsFontFamily,
+            fontWeight = FontWeight.SemiBold
         )
 
         Button(
-            onClick = { viewModel.onEvent(ResumeEvent.OnClickSendResume) },
+            onClick = { navController.navigate("submit_resume") },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 10.dp ,bottom = 8.dp),
+                .padding(top = 10.dp, bottom = 8.dp),
             colors = ButtonDefaults.buttonColors(Color(PrimaryButtonColor)),
         ) {
-            Text(stringResource(id = R.string.send_resume), fontFamily = poppininsFontFamily)
+            Text(
+                stringResource(id = R.string.send_resume),
+                fontFamily = poppininsFontFamily,
+                fontWeight = FontWeight.SemiBold,
+                color = Color(BackgroundColor)
+            )
         }
 
         Text(
             text = stringResource(id = R.string.information_transfer),
             fontSize = 14.sp,
-            color = Color(PrimaryBlueMainColor),
-            fontFamily = poppininsFontFamily
+            fontFamily = poppininsFontFamily,
+            fontWeight = FontWeight.SemiBold
         )
+    }
+}
+
+@Composable
+fun CustomPhotoPickerField(navController: NavHostController) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+            .background(Color.Transparent)
+            .border(1.dp, Color.Gray, shape = RoundedCornerShape(4.dp))
+            .clickable { navController.navigate("add_photo") }
+            .padding(16.dp),
+        contentAlignment = Alignment.CenterStart
+    ) {
+        Text(
+            text = stringResource(id = R.string.add_your_photo),
+            fontFamily = poppininsFontFamily,
+            fontWeight = FontWeight.SemiBold,
+            color = Color.Gray
+        )
+        Box(
+            modifier = Modifier.align(Alignment.CenterEnd)
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_load_photo),
+                contentDescription = null,
+                modifier = Modifier.size(40.dp)
+            )
+        }
     }
 }

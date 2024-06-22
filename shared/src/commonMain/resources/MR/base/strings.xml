@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resources>
-    <string name="give_experience">Хочешь получить важный experience?</string>
+    <string name="give_experience">Получить важный experience?</string>
     <string name="сomplete_the_internship">Команда Sebbia предлагает пройти практику</string>
-    <string name="get_on_the_team">Попасть в команду</string>
+    <string name="get_on_the_team">Перейти к резюме</string>
     <string name="fill_resume">Привет! Заполни резюме</string>
     <string name="for_contact">Для связи</string>
     <string name="add_your_photo">Добавьте свое фото</string>
@@ -35,4 +35,5 @@
     <string name="try_again">Попробовать еще раз</string>
     <string name="must_be_filled_in">Поле должно быть заполнено</string>
     <string name="add">Добавить</string>
+    <string name="thx">Спасибо</string>
 </resources>

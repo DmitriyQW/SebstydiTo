@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -21,6 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.sebstydi.sebstydi.android.R
 import com.sebstydi.sebstydi.android.ui.theme.SebstydiTheme
 import com.sebstydi.sebstydi.android.ui.theme.poppininsFontFamily
@@ -29,7 +31,7 @@ import com.sebstydi.sebstydi.ui.theme.PrimaryButtonColor
 import com.sebstydi.sebstydi.ui.theme.SecondaryBlueMainColor
 
     @Composable
-    fun ResumeErrorPreview() {
+    fun ResumeErrorPreview(navController: NavController) {
         SebstydiTheme {
             Column(modifier = Modifier
                 .fillMaxSize()) {
@@ -38,7 +40,7 @@ import com.sebstydi.sebstydi.ui.theme.SecondaryBlueMainColor
                 Text(text = stringResource(id = R.string.fill_resume_again_or_error_internet), style = TextStyle(fontSize = 15.sp, color = Color(
                     SecondaryBlueMainColor)), modifier = Modifier.padding(top = 18.dp, start = 20.dp), fontFamily = poppininsFontFamily, fontWeight = FontWeight.SemiBold)
 
-                Button(onClick = {}, modifier = Modifier
+                Button(onClick = {navController.navigate("main_screen")}, modifier = Modifier
                     .padding(top = 25.dp, start = 20.dp)
                     .width(182.dp)
                     .height(40.dp),
@@ -51,9 +53,7 @@ import com.sebstydi.sebstydi.ui.theme.SecondaryBlueMainColor
                 }
 
                 Image(painter = painterResource(id = R.drawable.error_chel), contentDescription = null,
-                    modifier = Modifier
-                        .width(500.dp)
-                        .height(550.dp))
+                    modifier = Modifier.size(500.dp, 570.dp))
             }
         }
     }
